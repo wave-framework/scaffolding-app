@@ -8,5 +8,7 @@
     "require": {
     	"php": ">=5.3.3",
     	"wave-framework/wave": "dev-master"
-    }
+    },
+    
+    "minimum-stability": "dev"
 }
