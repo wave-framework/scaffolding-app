@@ -1,0 +1,27 @@
+{% extends 'base.phtml' %}
+
+{% register css '/css/font-awesome.css' %}
+
+{% block head %}
+<style type="text/css">
+	#installed {
+		padding-top: 50px;
+	}
+	.icon { background: none transparent !important; }
+	.gold { color: #ffb610; vertical-align: middle !important; width: 25px !important; font-size: 30px; }
+</style>
+{% endblock %}
+
+{% block main %}
+	
+	<div id="installed">
+		<h2>~ Good {{interval|ucfirst}}.</h2>
+
+		<p class="lead">Looks like everything is all installed. {{macros.icon('star gold')}} for you.</p>
+
+		<p>It's {{today.format('g:ia')}} on {{today.format('l jS F, Y')}} <small>if not, check yo' timezone</small></p>
+
+		<hr />
+	</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% macro icon(name) %}<i class="icon icon-{{name}}"></i>{% endmacro %}
+
+{% macro csrf(identity, purpose, prefix) %}
+{% if errors._token %}
+<p class="alert alert-error">This form token has expired, please try your submission again.</p>
+{% endif %}
+<input type="hidden" name="{{prefix}}_token" value="{{_identity.getCSRFKey(purpose)}}" />
+{% endmacro %} 
+
+{% macro google_map(container, infowindow, lat, lng, args, href) %}
+{% register js "https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places" %}
+{% if not args %}
+{% set args = { 'mapTypeId': 'google.maps.MapTypeId.ROADMAP', 'zoom': 14 } %}
+{% endif %}
+{% set args = args|merge({ 'center': 'point' }) %}
+<script type="text/javascript">
+	(function(){
+		var func = 'addEventListener',
+			evnt = 'load';
+		if(!(window.addEventListener)){ func = 'attachEvent'; evnt = 'onload'; }
+		window[func](evnt, function(){
+			var point = new google.maps.LatLng({{lat}}, {{lng}}),
+				image = new google.maps.MarkerImage(wv._assets + '/img/map-marker.png'),
+				map = new google.maps.Map(document.getElementById('{{container}}'), {
+					{% for key, value in args %}
+					{{key}}: {{value}}{% if not loop.last %},{% endif %}
+
+					{% endfor %}
+				}),
+				marker = new google.maps.Marker({ map: map, icon: image, position: point, visible: true });
+			{% if infowindow %}
+			var element = document.getElementById('{{infowindow}}')
+				infowindow = new google.maps.InfoWindow({ content: element });
+			google.maps.event.addListener(marker, 'click', function(){ 
+				element.style.display = 'block';
+				infowindow.open(map, marker);
+			});
+			{% endif %}
+		});
+	})();
+</script>
+{% endmacro %}

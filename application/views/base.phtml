@@ -1,0 +1,31 @@
+{% import 'macros.phtml' as macros %}
+<!doctype html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+
+	<title>Wave Framework - Base Install</title>
+
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	{% register css '/css/bootstrap.min.css' %}
+    {% register js '/js/jquery.min.js' %}
+    {% register js '/js/bootstrap.min.js' %}
+    
+    {% block head %}{% endblock %}
+    {% output css %}
+
+</head>
+<body>
+    <div class="container">
+    	{% block main %}{% endblock %}
+    </div>
+    
+	{% output js %}
+	{% block scripts %}{% endblock %}
+
+	{{_debugger.render}}
+</body>
+</html>
