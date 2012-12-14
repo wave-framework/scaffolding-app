@@ -1,5 +1,5 @@
 {
-    "name": "wave/scaffolding-app",
+    "name": "wave-framework/scaffolding-app",
     "description": "An example application using the Wave Framework",
     "autoload": {
         "psr-0": { "": "application/" }
